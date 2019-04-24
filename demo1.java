@@ -3,14 +3,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 import java.io.Serializable;
+import java.util.Date;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+
 public class demo1 {
+      private Label respuesta = new Label("");
    public static void main(String args[]) {
+
           List<String> lista = new ArrayList<>();
           List<String> lista1 = new ArrayList<>();
+          List<String> lista2 = new ArrayList<>();
           
           boolean sal = false;
           Scanner in = new Scanner(System.in);
-          String opcion="Continuar";
+          String opcion="si";
           String vari="";
           String var1="";
           String nombres="";
@@ -29,10 +45,12 @@ public class demo1 {
                     una_compra.getComprador().setName(nombres);
                     numeros=Integer.toString(i);
                     una_compra.getComprador().setNumeroCliente(numeros);               
-                    while(opcion.equals("Continuar")||opcion.equals("continuar")){
+                    while(opcion.equals("Si")||opcion.equals("si")){
                       System.out.println("Introduzca el articulo a comprar");
                       vari=in.next();
+                      System.out.println(una_compra.getProducto().getPeso()+" kg ");
                       una_compra.getProducto().setPrecio((int )(Math.random() * 10 + 1));
+                      lista2.add(Integer.toString(una_compra.getProducto().getPrecio())+"$");
 
                       una_compra.getProducto().setNombre(vari);
                       lista.add(vari);
@@ -43,7 +61,7 @@ public class demo1 {
                       System.out.println("Precio de "+una_compra.getProducto().getNombre()+" "+una_compra.getProducto().getPrecio()+" $ ");
                       
                       preciototal=preciototal+Integer.parseInt(var1)*una_compra.getProducto().getPrecio();
-                      System.out.println("Escribe Continuar para seguir con la compra");
+                      System.out.println("Desea Continuar?");
                       opcion=in.next();
                     }
                     break;
@@ -54,10 +72,13 @@ public class demo1 {
           }while(!sal);
           String save=una_compra.getComprador().getName()+"\nNumero de cliente "
           +una_compra.getComprador().getNumeroCliente()+"\nLista de productos "+lista+"\nCantidad de estos"
-          +lista1+"\nPrecio total de la compra "+preciototal+"\nMuchas gracias por su compra, fue atendido por\n"+
-          una_compra.getEmpleado().getName()+"\nNumero de empleado "+una_compra.getEmpleado().getNumeroEmpleado();
+          +lista1+"\n Precio "+lista2+" \nPrecio total de la compra "+preciototal+" $ \nMuchas gracias por su compra, fue atendido por\n"+
+          una_compra.getEmpleado().getName()+"\nNumero de empleado "+una_compra.getEmpleado().getNumeroEmpleado()
+          +"\n\n "+una_compra.getFecha().toString();
 
           System.out.println(save);
+          //TicketBD tbd = new TicketBD();
+          //tbd.grabar(save);
 
           System.out.println("Desea guardar la compra en modo texto? Si");
           String opcion1=in.next();
@@ -70,34 +91,8 @@ public class demo1 {
                   e.printStackTrace();
           }
           if(opcion1.equals("Si")||opcion1.equals("si")){
-              BufferedWriter bw = null;
-              FileWriter fw = null;
-              try {
-                  File file = new File("TicketCompra.txt");
-                
-                  if (!file.exists()) {
-                      file.createNewFile();
-                  }
-              
-                  fw = new FileWriter(file.getAbsoluteFile(), true);
-                  bw = new BufferedWriter(fw);
-                  bw.write("\n");
-                  bw.write("-----------------------------------------------------------------------------\n");
-                  bw.write(save);
-                  System.out.println("informacion agregada!");
-              } catch (IOException e) {
-                  e.printStackTrace();
-              } finally {
-                  try {
-                      if (bw != null)
-                          bw.close();
-                      if (fw != null)
-                          fw.close();
-                  } catch (IOException ex) {
-                      ex.printStackTrace();
-                  }
-              }
+              TicketTexto tt= new TicketTexto();
+              tt.grabar(save);
           }
-          
   }
 }

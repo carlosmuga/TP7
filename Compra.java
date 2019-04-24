@@ -1,9 +1,11 @@
 import java.io.Serializable;
+import java.util.Date;
 public class Compra implements Serializable {
   private Empleado emple;
   private Comprador comp;
   private Producto product;
   private int cant;
+  private Date objDate = new Date(); 
   public Compra() {
     // constructor por defecto
     emple= new Empleado();
@@ -39,5 +41,11 @@ public class Compra implements Serializable {
   }
   public void setCant(int cant) {
     this.cant = cant;
+  }
+  public Date getFecha() {
+    return objDate;
+  }
+  public void setFecha(Date fecha) {
+    this.objDate =objDate;
   }
 }

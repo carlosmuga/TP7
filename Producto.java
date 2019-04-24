@@ -8,6 +8,7 @@ public class Producto implements Serializable {
     private int peso;
     public Producto() {
         this.precio=(int )(Math.random() * 10 + 1);
+        this.peso=(int )(Math.random() * 10 + 1);
     }
     public Producto(String color, int peso, String tipo,int precio,String nombre) {
         this.color = color;
