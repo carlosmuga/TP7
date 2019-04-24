@@ -1,0 +1,3 @@
+Verde:GranSmith:20:Manzanas:pink lady
+Verde:GranSmith:20:Platanos:Canarias
+Verde:GranSmith:20:Melon:gordo
